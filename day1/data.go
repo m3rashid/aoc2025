@@ -1,6 +1,17 @@
 package main
 
-var sample = `R29
+var sample = `L68
+L30
+R48
+L5
+R60
+L55
+L1
+L99
+R14
+L82`
+
+var data = `R29
 L3
 L46
 L25

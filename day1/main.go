@@ -6,19 +6,8 @@ import (
 	"strings"
 )
 
-var temp = `L68
-L30
-R48
-L5
-R60
-L55
-L1
-L99
-R14
-L82`
-
 func Part1() {
-	lines := strings.Split(sample, "\n")
+	lines := strings.Split(data, "\n")
 	point := 50
 	zeroes := 0
 
@@ -39,7 +28,7 @@ func Part1() {
 }
 
 func Part2() {
-	lines := strings.Split(sample, "\n")
+	lines := strings.Split(data, "\n")
 	point := 50
 	zeroes := 0
 
