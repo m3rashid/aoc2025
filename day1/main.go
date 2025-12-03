@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func Part1() {
+func part1() {
 	lines := strings.Split(data, "\n")
 	point := 50
 	zeroes := 0
@@ -27,7 +27,7 @@ func Part1() {
 	fmt.Printf("\n\n\nPassword: %d\n", zeroes)
 }
 
-func Part2() {
+func part2() {
 	lines := strings.Split(data, "\n")
 	point := 50
 	zeroes := 0
@@ -57,5 +57,6 @@ func Part2() {
 }
 
 func main() {
-	Part1()
+	part1()
+	part2()
 }
