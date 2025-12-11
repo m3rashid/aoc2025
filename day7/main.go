@@ -44,23 +44,6 @@ func part1() {
 	fmt.Printf("Part1 Total Rays: %d\n", totalSplits)
 }
 
-/*
-1
-1 1
-1 1
-1 2 1
-1 2 1
-1 3 3 1
-1 3 3 1
-1 4 3 3 1 1
-1 4 3 3 1 1
-1 5 4 3 4 2 1
-1 5 4 3 4 2 1
-1 1 5 4 7 4 2 1 1
-1 1 5 4 7 4 2 1 1
-1 2 10 11 11 2 1 1 1
-*/
-
 func part2() {
 	lines := strings.Split(data, "\n")
 	numberOfLines := len(lines)
