@@ -60,53 +60,81 @@ func part1() {
 	fmt.Println("Part 1: ", res)
 }
 
-type operator struct {
-	val      string
-	digitLen int
-	numbers  []string
+type Operator struct {
+	op       string
+	maxDigit int
+}
+
+func getOperators(line string) []Operator {
+	operators := []Operator{}
+
+	lastOp := ""
+	currentSize := 0
+
+	for _, ch := range line {
+		if ch == ' ' {
+			currentSize++
+			continue
+		}
+
+		if lastOp != "" {
+			operators = append(operators, Operator{op: lastOp, maxDigit: currentSize})
+		}
+
+		lastOp = string(ch)
+		currentSize = 0
+	}
+
+	if lastOp != "" {
+		operators = append(operators, Operator{op: lastOp, maxDigit: currentSize + 1})
+	}
+
+	return operators
 }
 
 func part2() {
-	lines := strings.Split(sample, "\n")
+	lines := strings.Split(data, "\n")
 	numberOfDataLines := len(lines) - 1
+	operators := getOperators(lines[numberOfDataLines])
 
-	operators := []operator{}
-	operatorLine := []rune(lines[numberOfDataLines])
+	currentXOffset := 0
+	totalSum := 0
 
-	digitLen := 1
-	for i := len(operatorLine) - 1; i >= 0; i-- {
-		if operatorLine[i] == ' ' {
-			digitLen++
-		} else {
-			operators = append(operators, operator{val: string(operatorLine[i]), digitLen: digitLen})
-			digitLen = 0
+	for _, op := range operators {
+		digits := op.maxDigit
+		operator := op.op
+
+		globalRes := 0
+		if operator == "*" {
+			globalRes = 1
 		}
-	}
 
-	// reverse the operators
-	for i, j := 0, len(operators)-1; i < j; i, j = i+1, j-1 {
-		operators[i], operators[j] = operators[j], operators[i]
-	}
+		for i := range digits {
+			localRes := 0
+			for j := range numberOfDataLines {
+				digit := lines[j][currentXOffset+i]
+				if digit != ' ' {
+					localRes = localRes*10 + int(digit-'0')
+				}
+			}
 
-	allNumbers := [][]string{}
-
-	for i := range numberOfDataLines {
-		line := lines[i]
-		number := []string{}
-
-		currentNo := ""
-
-		for j, ch := range line {
-			if ch != ' ' {
-				currentNo += string(ch)
-
-				continue
+			switch operator {
+			case "*":
+				globalRes *= localRes
+			case "+":
+				globalRes += localRes
 			}
 		}
+
+		totalSum += globalRes
+
+		currentXOffset += op.maxDigit + 1 // +1 for the space
 	}
+
+	fmt.Println("Part 2: ", totalSum)
 }
 
 func main() {
-	// part1()
+	part1()
 	part2()
 }
